@@ -7,20 +7,32 @@ public class SpawnManager : MonoBehaviour
 {
     [SerializeField] private GameObject enemyPrefab;
     [SerializeField] private float spawnRate = 4.0f;
+    private static SpawnManager instance;
+    public static SpawnManager Instance
+    {
+        get
+        {
+            return instance;
+        }
+    }
+
     public bool isGameOver = false;
     NavMeshTriangulation Triangles;
 
-    void Start()
+    private void Awake()
     {
+        if (instance != null && instance != this)
+        {
+            Destroy(this.gameObject);
+        }
+        else
+        {
+            instance = this;
+        }
         Triangles = NavMesh.CalculateTriangulation();
         StartCoroutine(SpawnEnemyRoutine());
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
     IEnumerator SpawnEnemyRoutine()
     {

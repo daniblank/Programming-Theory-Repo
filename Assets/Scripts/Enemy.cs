@@ -22,6 +22,11 @@ public class Enemy : Agent
     private void Update()
     {
         goal = GameObject.Find("Player");
+        if (SpawnManager.Instance.isGameOver)
+        {
+            agent.destination = transform.position;
+            return;
+        }
         agent.destination = goal.transform.position;
     }
 

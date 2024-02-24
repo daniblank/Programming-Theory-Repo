@@ -25,9 +25,18 @@ public class Player : Agent
 
     public void OnMove(InputValue value)
     {
+        if (SpawnManager.Instance.isGameOver)
+        {
+            return;
+        }
         inputVector = value.Get<Vector2>();
+    }
+    public override void Die()
+    {
+        Debug.Log("Player died:" + gameObject.name);
+        SpawnManager.Instance.isGameOver = true;
+        Destroy(gameObject);
     }
 
 
-    
 }
