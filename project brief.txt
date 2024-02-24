@@ -10,15 +10,13 @@ Object hierarchy
 
 - Playing Field
 - Agent > Player
-- Agent > Enemy > Enemy1,2,3
-- Agent > Neutral
+- Agent > Enemy
 
 Agents:
 fields
 - health points 0-100 (protected)
 - deal out damage points (0-30)
 - speed (1-10)
-- movement pattern (array of GameObjects as targets)
 methods
 - get damaged
 - move, default implementation is using AI
@@ -29,6 +27,4 @@ Player:
 Enemy:
 - inflicts damage on collision
 
-Enemy1,2,3:
-- varying number of damage points
-- varying velocity
+
