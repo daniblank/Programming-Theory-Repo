@@ -1,11 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class Player : Agent
 {
-    private Vector2 inputVector;
+    private Vector2 inputVector = Vector2.zero;
     public override void Move()
     {
         if (inputVector != Vector2.zero)
@@ -14,27 +12,24 @@ public class Player : Agent
         }
     }
 
-    private void Awake()
+     public void OnMove(InputValue value)
     {
-        inputVector = Vector2.zero;
-        Speed = 10;
-        Health = 1000;
-        Damage = 1;
-    }
-
-
-    public void OnMove(InputValue value)
-    {
-        if (SpawnManager.Instance.isGameOver)
+        if (GameManager.Instance.IsGameOver)
         {
+            inputVector = Vector2.zero;
             return;
         }
         inputVector = value.Get<Vector2>();
     }
+
+    public override void OnTriggerEnter(Collider other)
+    {
+        base.OnTriggerEnter(other);
+    }
     public override void Die()
     {
         Debug.Log("Player died:" + gameObject.name);
-        SpawnManager.Instance.isGameOver = true;
+        GameManager.Instance.IsGameOver = true;
         Destroy(gameObject);
     }
 
